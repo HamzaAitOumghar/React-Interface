@@ -3,7 +3,7 @@ import '../css/App.css';
 import AddAppointements from './AddAppointements';
 import ListAppointements from './ListAppointements';
 import SearchAppointements from './SearchAppointments';
-
+import { without } from 'lodash';
 
 
 export default class App extends Component {
@@ -12,8 +12,11 @@ export default class App extends Component {
     super();
     this.state = {
       myName: 'HAMZA',
-      myAppointments: []
+      myAppointments: [],
+      formDisplay: false
     }
+    this.deleteAppointment = this.deleteAppointment.bind(this);
+    this.toggleForm = this.toggleForm.bind(this);
   }
 
   componentDidMount() {
@@ -26,31 +29,37 @@ export default class App extends Component {
         this.setState({
           myAppointments: apts
         });
-        console.log(this.state);
-
       });
 
   }
 
+  deleteAppointment(apt) {
+    let tempApp = this.state.myAppointments;
+    tempApp = without(tempApp, apt);
+    this.setState({
+      myAppointments: tempApp
+    }
+    );
+
+  }
+  
+  toggleForm() {
+    this.setState({
+      formDisplay: !this.state.formDisplay
+    }
+    );
+  }
+
+
   render() {
-
-    const listItems = this.state.myAppointments.map(item => {
-      return (<div>
-        <div>{item.petName}</div>
-        <div>{item.ownerName}</div>
-      </div>)
-
-    });
-
     return (
       <main className="page bg-white" id="petratings">
         <div className="container">
           <div className="row">
             <div className="col-md-12 bg-white">
               <div className="container">
-                {listItems}
-                <AddAppointements />
-                <ListAppointements />
+                <AddAppointements formDisplay={this.state.formDisplay} toggleForm={this.toggleForm} />
+                <ListAppointements deleteAppointment={this.deleteAppointment} appointments={this.state.myAppointments} />
                 <SearchAppointements />
               </div>
             </div>
