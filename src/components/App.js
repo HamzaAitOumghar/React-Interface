@@ -17,6 +17,7 @@ export default class App extends Component {
     }
     this.deleteAppointment = this.deleteAppointment.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
+    this.addAppointement = this.addAppointement.bind(this);
   }
 
   componentDidMount() {
@@ -38,11 +39,19 @@ export default class App extends Component {
     tempApp = without(tempApp, apt);
     this.setState({
       myAppointments: tempApp
-    }
-    );
+    });
+    this.props.toggleForm();
 
   }
-  
+
+  addAppointement(appnointement) {
+    let tempApts = this.state.myAppointments;
+    tempApts.push(appnointement);
+    this.setState({
+      myAppointments: tempApts
+    });
+  }
+
   toggleForm() {
     this.setState({
       formDisplay: !this.state.formDisplay
@@ -58,7 +67,7 @@ export default class App extends Component {
           <div className="row">
             <div className="col-md-12 bg-white">
               <div className="container">
-                <AddAppointements formDisplay={this.state.formDisplay} toggleForm={this.toggleForm} />
+                <AddAppointements formDisplay={this.state.formDisplay} toggleForm={this.toggleForm} addAppointement={this.addAppointement} />
                 <ListAppointements deleteAppointment={this.deleteAppointment} appointments={this.state.myAppointments} />
                 <SearchAppointements />
               </div>

@@ -1,5 +1,8 @@
 .add-appointment .card-body{
   display: none;
+  transition: 1s;
+  transition-timing-function: ease-out;
+
 }
 .hover:hover{
   opacity: 0.7;
