@@ -11,7 +11,8 @@ export default class SearchAppointments extends Component {
                             type="text"
                             className="form-control"
                             aria-label="Search Appointments"
-                            onChange={(e)=>{this.props.searchApts(e.target)}}
+                            onChange={(e)=>{
+                                this.props.searchApts(e.target.value)}}
                         />
                         <div className="input-group-append">
                             <button

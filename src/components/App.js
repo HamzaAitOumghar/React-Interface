@@ -69,13 +69,13 @@ export default class App extends Component {
       orderDir: oDir,
     });
   }
-    
-  searchApts(msg){
+
+  searchApts(msg) {
     this.setState({
       queryText: msg
     });
   }
-    
+
   render() {
 
     let order;
@@ -95,9 +95,10 @@ export default class App extends Component {
         return 1 * order;
       }
     }).filter(item => {
-      return (item['petName'].toLowerCase().includes(this.state.queryText.toLowerCase()) ||
-        item['ownerName'].toLowerCase().includes(this.state.queryText.toLowerCase()) ||
-        item['aptNotes'].toLowerCase().includes(this.state.queryText.toLowerCase()));
+      return (
+        item['petName'].toString().toLowerCase().includes(this.state.queryText.toString().toLowerCase()) ||
+        item['ownerName'].toString().toLowerCase().includes(this.state.queryText.toString().toLowerCase()) ||
+        item['aptNotes'].toString().toLowerCase().includes(this.state.queryText.toString().toLowerCase()));
     });
 
     return (
