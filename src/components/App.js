@@ -14,6 +14,7 @@ export default class App extends Component {
       myName: 'HAMZA',
       myAppointments: [],
       orderBy: 'petName',
+      queryText:'pe',
       orderDir: 'asc',
       formDisplay: false
     }
@@ -79,14 +80,18 @@ export default class App extends Component {
       order = -1;
     }
 
-    filteredApts.sort((a, b) => {
+    filteredApts=filteredApts.sort((a, b) => {
       if (a[this.state.orderBy].toLowerCase() < b[this.state.orderBy].toLowerCase()) {
         return -1 * order;
       }
       else {
         return 1 * order;
       }
-    })
+    }).filter(item=>{
+      return (item['petName'].toLowerCase().includes(this.state.queryText.toLowerCase())||
+      item['ownerName'].toLowerCase().includes(this.state.queryText.toLowerCase())||
+      item['aptNotes'].toLowerCase().includes(this.state.queryText.toLowerCase()));
+    });
 
     return (
       <main className="page bg-white" id="petratings">
